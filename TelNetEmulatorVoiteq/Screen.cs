@@ -9,7 +9,14 @@ namespace TelNetEmulatorVoiteq
     public class Screen
     {
         private string name;
+        private List<Field> fieldList = new List<Field>();
 
         public string Name { get => name; set => name = value; }
+        public List<Field> FieldList { get => fieldList;}
+
+        public Screen()
+        {
+
+        }
     }
 }

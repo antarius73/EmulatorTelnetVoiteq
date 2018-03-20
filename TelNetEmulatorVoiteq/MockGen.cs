@@ -18,5 +18,33 @@ namespace TelNetEmulatorVoiteq
             projects.Add(new Project() { Name = "projet trois" });
             return projects;
         }
+
+
+        public static Screen GetLogginScreen()
+        {
+            Screen loggin = new Screen() { Name="login"};
+
+            Position pos = new Position();
+
+            Field textField = new Field("Login : ", pos);
+
+            loggin.FieldList.Add(textField);
+
+            pos = textField.EndingPosition;
+
+            textField = new Field("________", pos);
+            loggin.FieldList.Add(textField);
+            pos = textField.EndingPosition;
+
+            SpecialCharSequence speReturn = SpecialCharSequence.Return;
+
+
+
+            textField = new Field("\nPassword : ", pos);
+
+            loggin.FieldList.Add(textField);
+
+            return loggin;
+        }
     }
 }
