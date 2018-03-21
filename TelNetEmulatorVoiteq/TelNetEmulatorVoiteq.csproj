@@ -58,6 +58,7 @@
     <Compile Include="Position.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Screen.cs" />
+    <Compile Include="EscSequence.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

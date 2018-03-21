@@ -33,6 +33,15 @@ namespace TelNetEmulatorVoiteq
             endingPosition.Col += text.Length;
         }
 
+        public string toTelnet()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append(String.Format(EscSequence.cursorMove.defaultText, StartingPosition.Row,StartingPosition.Col));
+            builder.Append(defaultText);
+
+            return builder.ToString();
+        }
 
     }
 }

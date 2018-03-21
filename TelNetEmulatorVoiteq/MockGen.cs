@@ -13,35 +13,39 @@ namespace TelNetEmulatorVoiteq
         {
             List<Project> projects = new List<Project>();
 
-            projects.Add(new Project() { Name = "projet un" });
+            Project p1 = new Project() { Name = "projet un" };
+            p1.ScreenLst.Add(MockGen.GetLoginScreen());
+            projects.Add(p1);
+
             projects.Add(new Project() { Name = "projet deux" });
             projects.Add(new Project() { Name = "projet trois" });
             return projects;
         }
 
 
-        public static Screen GetLogginScreen()
+        public static Screen GetLoginScreen()
         {
             Screen loggin = new Screen() { Name="login"};
 
+            loggin.WithClearAll = true;
+
             Position pos = new Position();
+            
+            Field textField = new Field("Login    : ", new Position(1,1));
+            loggin.FieldList.Add(textField);
 
-            Field textField = new Field("Login : ", pos);
+            pos = textField.EndingPosition;
+            loggin.StartingPosition = pos;
 
+            textField = new Field("________", pos);
+            loggin.FieldList.Add(textField);
+            
+            textField = new Field("Password : ", new Position(2, 1));
             loggin.FieldList.Add(textField);
 
             pos = textField.EndingPosition;
 
             textField = new Field("________", pos);
-            loggin.FieldList.Add(textField);
-            pos = textField.EndingPosition;
-
-            SpecialCharSequence speReturn = SpecialCharSequence.Return;
-
-
-
-            textField = new Field("\nPassword : ", pos);
-
             loggin.FieldList.Add(textField);
 
             return loggin;

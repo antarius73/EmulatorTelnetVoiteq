@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +16,10 @@ namespace TelNetEmulatorVoiteq
     public partial class EmulatorMainFrm : Form
     {
         private static Server s;
-        private Project currentProject;
+        private static Project currentProject;
+
+        private static IPAddress localIp = IPAddress.Parse("127.0.0.1");
+
 
         public EmulatorMainFrm()
         {
@@ -25,7 +29,6 @@ namespace TelNetEmulatorVoiteq
 
         private void InitializeDefaultHostparam()
         {
-            hostIpTxt.Text = "127.0.0.1";
             hostPortTxt.Text = "23";
 
             currentProjectCbx.DataSource = Project.getAllProjects();
@@ -42,8 +45,11 @@ namespace TelNetEmulatorVoiteq
 
         private void startServer_Click(object sender, EventArgs e)
         {
-         
-            s = new Server(getIpAddress());
+            // à clarifier
+            //IPAddress ip = GetIPAddress();
+            IPAddress ip = localIp;
+            hostLbl.Text = "Host : " + ip.ToString();
+            s = new Server(ip);
             s.ClientConnected += clientConnected;
             s.ClientDisconnected += clientDisconnected;
             s.ConnectionBlocked += connectionBlocked;
@@ -63,14 +69,19 @@ namespace TelNetEmulatorVoiteq
             s.stop();*/
         }
 
-       private IPAddress getIpAddress()
+        public static IPAddress GetIPAddress()
         {
-            IPAddress definedIp;
-            if (!IPAddress.TryParse(hostIpTxt.Text, out definedIp))
+            IPHostEntry host;
+            IPAddress localIP = IPAddress.Any;
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
             {
-                definedIp = IPAddress.Any;
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    localIP = ip;
+                }
             }
-            return definedIp;
+            return localIP;
         }
 
         private int getPort()
@@ -85,8 +96,8 @@ namespace TelNetEmulatorVoiteq
         private static void clientConnected(Client c)
         {
             Console.WriteLine("CONNECTED: " + c);
-
-            s.sendMessageToClient(c, "Telnet Server\r\nLogin: \x1b[6;10H");
+            s.sendMessageToClient(c, currentProject.ScreenLst[0].toTelnet());
+            
         }
 
         private static void clientDisconnected(Client c)
