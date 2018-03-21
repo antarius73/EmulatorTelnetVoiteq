@@ -15,10 +15,18 @@ namespace TelNetEmulatorVoiteq
 
             Project p1 = new Project() { Name = "projet un" };
             p1.ScreenLst.Add(MockGen.GetLoginScreen());
+
+            // faire la gestion des transition ici dans l'objet projet, caster les screen dans des var puis faire les liaison avec les condition ici
+
+            p1.ScreenLst.Add(MockGen.GetWellcomScreen());
+            p1.ActiveScreen = p1.ScreenLst[0];
             projects.Add(p1);
 
             projects.Add(new Project() { Name = "projet deux" });
             projects.Add(new Project() { Name = "projet trois" });
+
+            
+
             return projects;
         }
 
@@ -48,7 +56,23 @@ namespace TelNetEmulatorVoiteq
             textField = new Field("________", pos);
             loggin.FieldList.Add(textField);
 
+
+            
             return loggin;
+        }
+
+        public static Screen GetWellcomScreen()
+        {
+            Screen wellcome = new Screen() { Name = "wellcome" };
+
+            wellcome.WithClearAll = true;
+
+            Position pos = new Position();
+
+            Field textField = new Field("Wellcome !", new Position(1, 1));
+            wellcome.FieldList.Add(textField);
+
+            return wellcome;
         }
     }
 }

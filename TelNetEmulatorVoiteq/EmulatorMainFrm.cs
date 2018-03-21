@@ -96,7 +96,7 @@ namespace TelNetEmulatorVoiteq
         private static void clientConnected(Client c)
         {
             Console.WriteLine("CONNECTED: " + c);
-            s.sendMessageToClient(c, currentProject.ScreenLst[0].toTelnet());
+            s.sendMessageToClient(c, currentProject.ActiveScreen.toTelnet());
             
         }
 
@@ -112,7 +112,7 @@ namespace TelNetEmulatorVoiteq
 
         private static void messageReceived(Client c, string message)
         {
-            Console.WriteLine("MESSAGE: " + message);
+          /*  Console.WriteLine("MESSAGE: " + message);
 
             if (message != "kickmyass")
             {
@@ -143,6 +143,7 @@ namespace TelNetEmulatorVoiteq
 
             else
                 s.kickClient(c);
+                */
         }
 
         private void stopServer_Click(object sender, EventArgs e)

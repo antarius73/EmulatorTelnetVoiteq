@@ -12,11 +12,14 @@ namespace TelNetEmulatorVoiteq
         private List<Field> fieldList = new List<Field>();
         private bool withClearAll = false;
         private Position startingPosition;
+        private List<Transition> transitionList = new List<Transition>(); 
+        //private FieldInput activeField;
 
         public string Name { get => name; set => name = value; }
         public List<Field> FieldList { get => fieldList;}
         public bool WithClearAll { get => withClearAll; set => withClearAll = value; }
         public Position StartingPosition { get => startingPosition; set => startingPosition = value; }
+        public List<Transition> TransitionList { get => transitionList; }
 
         public Screen()
         {

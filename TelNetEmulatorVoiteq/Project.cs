@@ -10,9 +10,11 @@ namespace TelNetEmulatorVoiteq
     {
         private string name;
         private List<Screen> screenLst = new List<Screen>();
+        private Screen activeScreen;
 
         public string Name { get => name; set => name = value; }
         public List<Screen> ScreenLst { get => screenLst; }
+        public Screen ActiveScreen { get => activeScreen; set => activeScreen = value; }
 
         public static List<Project> getAllProjects()
         {
