@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace TelNetEmulatorVoiteq
 {
-    public class InputField : Field
+    public class InputField : InfoField
     {
         private string textMask;
-        private ProjectVariable variable;
-
-        public ProjectVariable Variable { get => variable; set => variable = value; }
         public string TextMask { get => textMask; set => textMask = value; }
 
         public InputField(string text, string mask) : base(mask)

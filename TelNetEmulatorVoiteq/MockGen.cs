@@ -19,6 +19,7 @@ namespace TelNetEmulatorVoiteq
             p1.VariableDic.Add("psw", new ProjectVariable(String.Empty));
 
             Screen login = MockGen.GetLoginScreen(p1); 
+            Screen loginPsw = MockGen.GetLoginScreen(p1);
             Screen Wellcom = MockGen.GetWellcomScreen(); 
 
 
@@ -27,17 +28,25 @@ namespace TelNetEmulatorVoiteq
             
             login.ActiveVariable = p1.VariableDic["user"];
 
-            Transition logToWellcom = new Transition(p1);
-            logToWellcom.DestinationScreen = Wellcom;
-            logToWellcom.Condition = "\"[user]\"==\"greg\"";
+            Transition logToLogPsw = new Transition(p1);
+            logToLogPsw.DestinationScreen = loginPsw;
+            logToLogPsw.Condition = "\"[user]\"==\"greg\"";
 
-            login.TransitionList.Add(logToWellcom);
-
-            
-
+            login.TransitionList.Add(logToLogPsw);
             p1.ScreenLst.Add(login);
 
-            
+
+            loginPsw.ActiveVariable = p1.VariableDic["psw"];
+            loginPsw.StartingPosition = new Position(2, 12);
+            loginPsw.Name = "loginPsw";
+
+            Transition logToWellcom = new Transition(p1);
+            logToWellcom.DestinationScreen = Wellcom;
+            logToWellcom.Condition = "\"[psw]\"==\"toto\"";
+
+            loginPsw.TransitionList.Add(logToWellcom);
+            p1.ScreenLst.Add(loginPsw);
+
 
             p1.ScreenLst.Add(Wellcom);
             p1.ActiveScreen = p1.ScreenLst[0];
@@ -80,8 +89,8 @@ namespace TelNetEmulatorVoiteq
 
             pos = textField.EndingPosition;
 
-            textField = new Field("________", pos);
-            loggin.FieldList.Add(textField);
+            inputField = new InputField(String.Empty, "________", pos);
+            loggin.FieldList.Add(inputField);
 
 
             

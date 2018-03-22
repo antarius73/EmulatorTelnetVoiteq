@@ -14,6 +14,8 @@ namespace TelNetEmulatorVoiteq
         private Position startingPosition;
         private ProjectVariable activeVariable;
         private List<Transition> transitionList = new List<Transition>();
+        private Screen nextScreen;
+        
 
         public string Name { get => name; set => name = value; }
         public List<Field> FieldList { get => fieldList;}
@@ -32,12 +34,20 @@ namespace TelNetEmulatorVoiteq
             this.ActiveVariable.CurrentValue = inputValue;
         }
 
+        public Screen getNextScreen()
+        {
+            if (nextScreen is null) return this;
+            else return nextScreen;
+        }
+
         private string getTransitionsResponse()
         {
+            nextScreen = null;
             foreach (Transition transition in transitionList)
             {
                 if (transition.evalCondition())
                 {
+                    nextScreen = transition.DestinationScreen;
                     return transition.DestinationScreen.toTelnet();
                 }
             }

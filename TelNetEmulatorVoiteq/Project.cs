@@ -23,7 +23,10 @@ namespace TelNetEmulatorVoiteq
         public string incomingMessage(string value) {
 
             activeScreen.incomingInput(value);
-            return activeScreen.toTelnet();
+            string response = activeScreen.toTelnet();
+            activeScreen = activeScreen.getNextScreen();
+
+            return response;
         }
 
 

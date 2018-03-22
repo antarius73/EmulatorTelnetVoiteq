@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InfoField.cs" />
     <Compile Include="InputField.cs" />
     <Compile Include="MockGen.cs" />
     <Compile Include="EmulatorMainFrm.cs">
