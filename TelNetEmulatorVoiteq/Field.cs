@@ -10,25 +10,25 @@ namespace TelNetEmulatorVoiteq
     {
         private Position startingPosition;
         private Position endingPosition;
-        private string defaultText;
+        private string text;
 
 
         public Position StartingPosition { get => startingPosition; set => startingPosition = value; }
         public Position EndingPosition { get => endingPosition; set => endingPosition = value; }
-        public string DefaultText { get => defaultText; set => defaultText = value; }
+        public string Text { get => text; set => text = value; }
 
 
 
         public Field(string text)
         {
-            DefaultText = text;
+            Text = text;
             endingPosition = StartingPosition = new Position() { Col=0, Row=0};
             endingPosition.Col += text.Length;
         }
 
         public Field(string text, Position startingPos)
         {
-            DefaultText = text;
+            Text = text;
             endingPosition = StartingPosition = startingPos;
             endingPosition.Col += text.Length;
         }
@@ -37,8 +37,8 @@ namespace TelNetEmulatorVoiteq
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append(String.Format(EscSequence.cursorMove.defaultText, StartingPosition.Row,StartingPosition.Col));
-            builder.Append(defaultText);
+            builder.Append(String.Format(EscSequence.cursorMove.text, StartingPosition.Row,StartingPosition.Col));
+            builder.Append(text);
 
             return builder.ToString();
         }

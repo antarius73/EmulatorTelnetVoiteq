@@ -12,18 +12,34 @@ namespace TelNetEmulatorVoiteq
 
     public class Transition
     {
-        private string inputValue;
         private string condition;
+        private string conditionTranslated;
+        private Screen destinationScreen;
+        private Project parentProject;
 
-        public string InputValue { get => inputValue; set => inputValue = value; }
         public string Condition { get => condition; set => condition = value; }
-
-        public bool evaluateCondition()
+        public Screen DestinationScreen { get => destinationScreen; set => destinationScreen = value; }
+       
+        public Transition(Project project)
         {
-            var engine = VsaEngine.CreateEngine();
-           object res =  Eval.JScriptEvaluate("toto == toto", engine);
+            parentProject = project;
+        }
 
-            return true;
+        public bool evalCondition()
+        {           
+            replaceConditionMarkup();
+            var engine = VsaEngine.CreateEngine();
+            object res = Eval.JScriptEvaluate(conditionTranslated, engine);
+            return (bool)res;
+        }
+
+        private void replaceConditionMarkup()
+        {
+            conditionTranslated = Condition;
+            foreach (var variableKeyValue in parentProject.VariableDic)
+            {
+                conditionTranslated = conditionTranslated.Replace("[" + variableKeyValue.Key + "]", variableKeyValue.Value.CurrentValue);
+            }
         }
     }
 }

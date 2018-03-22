@@ -12,13 +12,14 @@ namespace TelNetEmulatorVoiteq
         private List<Field> fieldList = new List<Field>();
         private bool withClearAll = false;
         private Position startingPosition;
-        private List<Transition> transitionList = new List<Transition>(); 
-        //private FieldInput activeField;
+        private ProjectVariable activeVariable;
+        private List<Transition> transitionList = new List<Transition>();
 
         public string Name { get => name; set => name = value; }
         public List<Field> FieldList { get => fieldList;}
         public bool WithClearAll { get => withClearAll; set => withClearAll = value; }
         public Position StartingPosition { get => startingPosition; set => startingPosition = value; }
+        public ProjectVariable ActiveVariable { get => activeVariable; set => activeVariable = value; }
         public List<Transition> TransitionList { get => transitionList; }
 
         public Screen()
@@ -26,8 +27,34 @@ namespace TelNetEmulatorVoiteq
 
         }
 
+        public void incomingInput(string inputValue)
+        {
+            this.ActiveVariable.CurrentValue = inputValue;
+        }
+
+        private string getTransitionsResponse()
+        {
+            foreach (Transition transition in transitionList)
+            {
+                if (transition.evalCondition())
+                {
+                    return transition.DestinationScreen.toTelnet();
+                }
+            }
+
+            return String.Empty;
+        }
+
         public string toTelnet()
         {
+
+            string transitionResponse = getTransitionsResponse();
+
+            if (!String.IsNullOrEmpty( transitionResponse))
+            {
+                return transitionResponse;
+            }
+
             StringBuilder builder = new StringBuilder();
             // clear the screen and put cursor top left
             if (WithClearAll)
@@ -42,7 +69,7 @@ namespace TelNetEmulatorVoiteq
             }
 
             // place cursor
-            builder.Append(String.Format(EscSequence.cursorMove.DefaultText, StartingPosition.Row, StartingPosition.Col));
+            builder.Append(String.Format(EscSequence.cursorMove.Text, StartingPosition.Row, StartingPosition.Col));
 
             return builder.ToString();
         }

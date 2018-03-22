@@ -56,11 +56,11 @@ namespace TelNetEmulatorVoiteq
             s.MessageReceived += messageReceived;
             s.start(this.getPort());
             this.stopServerBtn.Enabled = true;
-            //this.
-            // Console.WriteLine("SERVER STARTED: " + DateTime.Now);
-            this.terminalDataFluxRtb.Text += "SERVER STARTED: " + DateTime.Now + "\r\n";
-            this.terminalDataFluxRtb.Text += "PROJECT LOADED: " + currentProject.Name + "\r\n";
-            this.terminalDataFluxRtb.Text += "HOST: " + s.Ip.ToString()+" : "+s.Port.ToString()+ "\r\n";
+            
+            sendConsoleMessage("SERVER STARTED: " + DateTime.Now);
+            sendConsoleMessage("PROJECT LOADED: " + currentProject.Name);
+            sendConsoleMessage("HOST: " + s.Ip.ToString() + " : " + s.Port.ToString());
+
             /*do
             {
                 ; // nothing really
@@ -93,57 +93,62 @@ namespace TelNetEmulatorVoiteq
             return resultPort;
         }
 
-        private static void clientConnected(Client c)
+        private void clientConnected(Client c)
         {
-            Console.WriteLine("CONNECTED: " + c);
-            s.sendMessageToClient(c, currentProject.ActiveScreen.toTelnet());
-            
+            this.Invoke((MethodInvoker)delegate { sendConsoleMessage("CONNECTED: " + c); });
+            s.sendMessageToClient(c, currentProject.ActiveScreen.toTelnet());            
         }
 
-        private static void clientDisconnected(Client c)
+        private  void clientDisconnected(Client c)
         {
-            Console.WriteLine("DISCONNECTED: " + c);
+            this.Invoke((MethodInvoker)delegate { sendConsoleMessage("DISCONNECTED: " + c); });
         }
 
-        private static void connectionBlocked(IPEndPoint ep)
+        private void connectionBlocked(IPEndPoint ep)
         {
-            Console.WriteLine(string.Format("BLOCKED: {0}:{1} at {2}", ep.Address, ep.Port, DateTime.Now));
+            this.Invoke((MethodInvoker)delegate { sendConsoleMessage(string.Format("BLOCKED: {0}:{1} at {2}", ep.Address, ep.Port, DateTime.Now)); });           
         }
 
         private static void messageReceived(Client c, string message)
         {
-          /*  Console.WriteLine("MESSAGE: " + message);
+            s.sendMessageToClient(c, currentProject.incomingMessage(message));
+            /*  Console.WriteLine("MESSAGE: " + message);
 
-            if (message != "kickmyass")
-            {
-                EClientStatus status = c.getCurrentStatus();
+              if (message != "kickmyass")
+              {
+                  EClientStatus status = c.getCurrentStatus();
 
-                if (status == EClientStatus.Guest)
-                {
-                    if (message == "root")
-                    {
-                        s.sendMessageToClient(c, "\r\nPassword: ");
-                        c.setStatus(EClientStatus.Authenticating);
-                    }
-                }
+                  if (status == EClientStatus.Guest)
+                  {
+                      if (message == "root")
+                      {
+                          s.sendMessageToClient(c, "\r\nPassword: ");
+                          c.setStatus(EClientStatus.Authenticating);
+                      }
+                  }
 
-                else if (status == EClientStatus.Authenticating)
-                {
-                    if (message == "r00t")
-                    {
-                        s.clearClientScreen(c);
-                        s.sendMessageToClient(c, "Successfully authenticated.\r\n > ");
-                        c.setStatus(EClientStatus.LoggedIn);
-                    }
-                }
+                  else if (status == EClientStatus.Authenticating)
+                  {
+                      if (message == "r00t")
+                      {
+                          s.clearClientScreen(c);
+                          s.sendMessageToClient(c, "Successfully authenticated.\r\n > ");
+                          c.setStatus(EClientStatus.LoggedIn);
+                      }
+                  }
 
-                else
-                    s.sendMessageToClient(c, "\r\n > ");
-            }
+                  else
+                      s.sendMessageToClient(c, "\r\n > ");
+              }
 
-            else
-                s.kickClient(c);
-                */
+              else
+                  s.kickClient(c);
+                  */
+        }
+
+        private void sendConsoleMessage(string message)
+        {
+            this.terminalDataFluxRtb.Text += message + "\r\n";
         }
 
         private void stopServer_Click(object sender, EventArgs e)

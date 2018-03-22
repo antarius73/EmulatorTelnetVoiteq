@@ -14,12 +14,38 @@ namespace TelNetEmulatorVoiteq
             List<Project> projects = new List<Project>();
 
             Project p1 = new Project() { Name = "projet un" };
-            p1.ScreenLst.Add(MockGen.GetLoginScreen());
 
-            // faire la gestion des transition ici dans l'objet projet, caster les screen dans des var puis faire les liaison avec les condition ici
+            p1.VariableDic.Add("user", new ProjectVariable(String.Empty));
+            p1.VariableDic.Add("psw", new ProjectVariable(String.Empty));
 
-            p1.ScreenLst.Add(MockGen.GetWellcomScreen());
+            Screen login = MockGen.GetLoginScreen(p1); 
+            Screen Wellcom = MockGen.GetWellcomScreen(); 
+
+
+         
+
+            
+            login.ActiveVariable = p1.VariableDic["user"];
+
+            Transition logToWellcom = new Transition(p1);
+            logToWellcom.DestinationScreen = Wellcom;
+            logToWellcom.Condition = "\"[user]\"==\"greg\"";
+
+            login.TransitionList.Add(logToWellcom);
+
+            
+
+            p1.ScreenLst.Add(login);
+
+            
+
+            p1.ScreenLst.Add(Wellcom);
             p1.ActiveScreen = p1.ScreenLst[0];
+
+
+           
+
+
             projects.Add(p1);
 
             projects.Add(new Project() { Name = "projet deux" });
@@ -31,7 +57,7 @@ namespace TelNetEmulatorVoiteq
         }
 
 
-        public static Screen GetLoginScreen()
+        public static Screen GetLoginScreen(Project p)
         {
             Screen loggin = new Screen() { Name="login"};
 
@@ -45,8 +71,9 @@ namespace TelNetEmulatorVoiteq
             pos = textField.EndingPosition;
             loggin.StartingPosition = pos;
 
-            textField = new Field("________", pos);
-            loggin.FieldList.Add(textField);
+            InputField inputField = new InputField(String.Empty,"________", pos);
+            inputField.Variable = p.VariableDic["user"];
+            loggin.FieldList.Add(inputField);
             
             textField = new Field("Password : ", new Position(2, 1));
             loggin.FieldList.Add(textField);
@@ -58,6 +85,7 @@ namespace TelNetEmulatorVoiteq
 
 
             
+
             return loggin;
         }
 

@@ -58,7 +58,7 @@
             this.mainTab.Margin = new System.Windows.Forms.Padding(2);
             this.mainTab.Name = "mainTab";
             this.mainTab.SelectedIndex = 0;
-            this.mainTab.Size = new System.Drawing.Size(598, 652);
+            this.mainTab.Size = new System.Drawing.Size(973, 652);
             this.mainTab.TabIndex = 0;
             // 
             // terminalSurveyTap
@@ -77,7 +77,7 @@
             this.terminalSurveyTap.Margin = new System.Windows.Forms.Padding(2);
             this.terminalSurveyTap.Name = "terminalSurveyTap";
             this.terminalSurveyTap.Padding = new System.Windows.Forms.Padding(2);
-            this.terminalSurveyTap.Size = new System.Drawing.Size(590, 626);
+            this.terminalSurveyTap.Size = new System.Drawing.Size(965, 626);
             this.terminalSurveyTap.TabIndex = 0;
             this.terminalSurveyTap.Text = "Terminal Survey";
             this.terminalSurveyTap.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             // 
             this.projectLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.projectLbl.AutoSize = true;
-            this.projectLbl.Location = new System.Drawing.Point(236, 37);
+            this.projectLbl.Location = new System.Drawing.Point(611, 37);
             this.projectLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.projectLbl.Name = "projectLbl";
             this.projectLbl.Size = new System.Drawing.Size(85, 14);
@@ -129,7 +129,7 @@
             this.LogDgv.RowHeadersVisible = false;
             this.LogDgv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LogDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.LogDgv.Size = new System.Drawing.Size(580, 240);
+            this.LogDgv.Size = new System.Drawing.Size(955, 240);
             this.LogDgv.TabIndex = 50;
             // 
             // terminalDataFluxRtb
@@ -144,7 +144,7 @@
             this.terminalDataFluxRtb.Location = new System.Drawing.Point(7, 61);
             this.terminalDataFluxRtb.Name = "terminalDataFluxRtb";
             this.terminalDataFluxRtb.ReadOnly = true;
-            this.terminalDataFluxRtb.Size = new System.Drawing.Size(580, 288);
+            this.terminalDataFluxRtb.Size = new System.Drawing.Size(955, 288);
             this.terminalDataFluxRtb.TabIndex = 6;
             this.terminalDataFluxRtb.Text = "";
             this.terminalDataFluxRtb.WordWrap = false;
@@ -152,7 +152,7 @@
             // hostPortTxt
             // 
             this.hostPortTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hostPortTxt.Location = new System.Drawing.Point(475, 10);
+            this.hostPortTxt.Location = new System.Drawing.Point(850, 10);
             this.hostPortTxt.Margin = new System.Windows.Forms.Padding(2);
             this.hostPortTxt.Name = "hostPortTxt";
             this.hostPortTxt.Size = new System.Drawing.Size(111, 19);
@@ -162,7 +162,7 @@
             // 
             this.portLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.portLbl.AutoSize = true;
-            this.portLbl.Location = new System.Drawing.Point(441, 13);
+            this.portLbl.Location = new System.Drawing.Point(816, 13);
             this.portLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.portLbl.Name = "portLbl";
             this.portLbl.Size = new System.Drawing.Size(32, 14);
@@ -173,7 +173,7 @@
             // 
             this.hostLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hostLbl.AutoSize = true;
-            this.hostLbl.Location = new System.Drawing.Point(286, 13);
+            this.hostLbl.Location = new System.Drawing.Point(661, 13);
             this.hostLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.hostLbl.Name = "hostLbl";
             this.hostLbl.Size = new System.Drawing.Size(35, 14);
@@ -219,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 652);
+            this.ClientSize = new System.Drawing.Size(973, 652);
             this.Controls.Add(this.mainTab);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EmulatorMainFrm";
